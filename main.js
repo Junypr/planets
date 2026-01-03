@@ -12,8 +12,15 @@ import {Group, Tween, Easing} from "@tweenjs/tween.js";
 // add planets
 // each planet needs associated with it a camera view and a specific html tag
 
+// for each planet, add a camera view
+// create a function that tweens between current camera and chosen camera
+// add text as a layer to each planet's camera
+// help?
+// use CSS2Drenderer to add text
+
 
 function main() {
+    let resize_me = false;
 
     function makePlanet(radius, color, x, y, id) {
 
@@ -28,28 +35,13 @@ function main() {
 
         planet.text_element = document.getElementById(id);
 
+        planet.camera = new THREE.PerspectiveCamera(50, 1, 0.1, 1000);
+        planet.camera.position.set(planet.position.x, planet.position.y, 2);
+
         planet.addEventListener("click", (event) => {
             event.stopPropagation();
             console.log(`${id} was clicked, moving to ${planet.position.x}, ${planet.position.y}`);
-            controls.enabled = false;
-
-            new Tween(camera.position)
-                .to({x: planet.position.x, y: planet.position.y, z: 2})
-                .onUpdate(() => {
-                        controls.update();
-                })
-                .easing(Easing.Quadratic.InOut)
-                .group(Tweens)
-                .start();
-
-            new Tween(controls.target)
-                .to(planet.position)
-                .onUpdate(() => controls.update())
-                .easing(Easing.Quadratic.InOut)
-                .group(Tweens)
-                .start();
-
-            controls.enabled = true;
+            tweenTo(planet.camera, planet.position);
             planet.text_element.style.display = "block";
         });
 
@@ -58,13 +50,48 @@ function main() {
         return planet;
     }
 
+    function tweenTo(new_camera, new_target) {
+        controls.enabled = false;
+        const original_camera = camera.position;
+        new Tween(camera.position)
+            .to(new_camera.position)
+            .onUpdate(() => {
+                    controls.update();
+            })
+            .easing(Easing.Quadratic.InOut)
+            .group(Tweens)
+            .start();
+
+        // const original_target = controls.target;
+        new Tween(controls.target)
+            .to(new_target)
+            .onUpdate(() => controls.update())
+            .easing(Easing.Quadratic.InOut)
+            .group(Tweens)
+            .onComplete(() => {
+                let old_camera = camera;
+                camera = new_camera;
+                old_camera.position.set(original_camera);
+                controls.enabled = true;
+                resize_me = true;
+            })
+            .start();
+
+        //
+        // let old_camera = camera;
+        // camera = new_camera;
+        // old_camera.position.set(original_camera);
+        // controls.enabled = true;
+    }
+
     function resizeRendererToDisplaySize(renderer) {
         const canvas = renderer.domElement;
         const width = canvas.clientWidth;
         const height = canvas.clientHeight;
-        const needResize = canvas.width !== width || canvas.height !== height;
+        const needResize = canvas.width !== width || canvas.height !== height || resize_me;
         if (needResize) {
             renderer.setSize(width, height, false);
+            resize_me = false;
         }
         return needResize;
     }
@@ -113,7 +140,8 @@ function main() {
 
     const canvas = document.querySelector("#c");
     const renderer = new THREE.WebGLRenderer({antialias: true, canvas});
-    const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 1000);
+    const main_camera = new THREE.PerspectiveCamera(50, 1, 0.1, 1000);
+    let camera = main_camera;
     camera.position.z = 20;
     const scene = new THREE.Scene();
 
