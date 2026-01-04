@@ -18,6 +18,11 @@ import {Group, Tween, Easing} from "@tweenjs/tween.js";
 // help?
 // use CSS2Drenderer to add text
 
+// nvm just check for each planet if our camera position and target are close enough then show the text lol.
+// probably easier to just constantly check for this sob.
+// or do ray tracing??? check if the object is very close or not ig
+
+
 
 function main() {
     let resize_me = false;
@@ -35,13 +40,16 @@ function main() {
 
         planet.text_element = document.getElementById(id);
 
-        planet.camera = new THREE.PerspectiveCamera(50, 1, 0.1, 1000);
-        planet.camera.position.set(planet.position.x, planet.position.y, 2);
+        // planet.camera = new THREE.PerspectiveCamera(50, 1, 0.1, 1000);
+        // planet.camera.position.set(planet.position.x, planet.position.y, 2);
+        //
+        // planet.controls = new OrbitControls(planet.camera, renderer.domElement);
+        planet.camera_pos = {x: planet.position.x, y: planet.position.y, z: 2};
 
         planet.addEventListener("click", (event) => {
             event.stopPropagation();
             console.log(`${id} was clicked, moving to ${planet.position.x}, ${planet.position.y}`);
-            tweenTo(planet.camera, planet.position);
+            tweenTo(planet.camera_pos, planet.position);
             planet.text_element.style.display = "block";
         });
 
@@ -50,11 +58,10 @@ function main() {
         return planet;
     }
 
-    function tweenTo(new_camera, new_target) {
+    function tweenTo(camera_pos, new_target) {
         controls.enabled = false;
-        const original_camera = camera.position;
         new Tween(camera.position)
-            .to(new_camera.position)
+            .to(camera_pos)
             .onUpdate(() => {
                     controls.update();
             })
@@ -68,13 +75,7 @@ function main() {
             .onUpdate(() => controls.update())
             .easing(Easing.Quadratic.InOut)
             .group(Tweens)
-            .onComplete(() => {
-                let old_camera = camera;
-                camera = new_camera;
-                old_camera.position.set(original_camera);
-                controls.enabled = true;
-                resize_me = true;
-            })
+            .onComplete(() => controls.enabled = true)
             .start();
 
         //
@@ -154,9 +155,16 @@ function main() {
         makePlanet(1, colors[1], 5, 1, "planet2"),
     ];
 
+    const home_button = document.getElementById("home_button");
+    home_button.addEventListener("click", (event) => {
+        console.log("take me home was clicked");
+        tweenTo({x:0, y: 0, z:20}, {x:0,y:0,z:0});
+    })
+
     add_light();
 
-    const controls = new OrbitControls(camera, renderer.domElement);
+    const main_controls = new OrbitControls(camera, renderer.domElement);
+    let controls = main_controls;
 
     requestAnimationFrame(render);
 

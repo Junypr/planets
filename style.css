@@ -28,3 +28,13 @@ html, body {
   display:None;
   color: #888
 }
+
+#home_button {
+  position: absolute;
+  top: 100px;
+  width: 100%;
+  text-align: center;
+  z-index: 100;
+  display:block;
+  color: #888
+}
