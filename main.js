@@ -118,9 +118,23 @@ function main() {
         renderer.render(scene, camera);
         requestAnimationFrame(render);
 
+        show_text();
+
         controls.update();
         interactionManager.update();
         Tweens.update();
+    }
+
+    function show_text() {
+        console.log("checking planets");
+        planets.forEach((planet, ndx) => {
+            console.log(`checking planet ${ndx}`)
+            if (controls.target.x == planet.position.x && camera.position.z >= 1 && camera.position.z <= 3) {
+                planet.text_element.style.display = "block";
+            } else {
+                planet.text_element.style.display = "None";
+            }
+        });
     }
 
     function add_light() {
