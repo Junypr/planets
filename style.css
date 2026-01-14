@@ -1,3 +1,27 @@
+@font-face {
+  font-family: 'cheria'; /* A name to reference the font later */
+  src: url('fonts/Cheria\ DEMO.otf');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap; /* Helps control font loading behavior */
+}
+
+@font-face {
+  font-family: 'chunko bold'; /* A name to reference the font later */
+  src: url('fonts/Chunko\ Bold\ Demo.ttf'); 
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap; /* Helps control font loading behavior */
+}
+
+@font-face {
+  font-family: 'merriweather'; /* A name to reference the font later */
+  src: url('fonts/Merriweather-VariableFont_opsz\,wdth\,wght.ttf'); 
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap; /* Helps control font loading behavior */
+}
+
 html, body {
   margin: 0;
   height: 100%;
@@ -10,7 +34,7 @@ html, body {
   text-align: center;
   z-index: 100;
   display:block;
-  color: #888
+  color: #fff
 }
 
 #c {
@@ -24,19 +48,28 @@ html, body {
   top: 50%;
   left:50%;
   transform: translate(-50%, -50%);
-  width: 100%;
+  width: 70vh;
   text-align: center;
   z-index: 100;
   display:None;
-  color: #888
+  color: #fff;
+  font-family: 'merriweather';
 }
 
 #home_button {
   position: absolute;
-  bottom: 100px;
+  bottom: 50px;
   width: 100%;
   text-align: center;
   z-index: 100;
   display:block;
-  color: #888
+  color: #fff;
+}
+
+h1 {
+  font-family: 'chunko bold', Arial, Helvetica, sans-serif;
+  font-kerning: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 5rem;
 }

@@ -25,9 +25,8 @@ import {Group, Tween, Easing} from "@tweenjs/tween.js";
 
 
 function main() {
-    let resize_me = false;
 
-    function makePlanet(radius, color, x, y, id) {
+    function makePlanet(radius, color, x, y, z, id) {
 
         const geometry = new THREE.SphereGeometry(radius);
         const material = new THREE.MeshToonMaterial({color});
@@ -37,14 +36,11 @@ function main() {
 
         planet.position.x = x;
         planet.position.y = y;
+        planet.position.z = z;
+        planet.radius = radius;
 
         planet.text_element = document.getElementById(id);
-
-        // planet.camera = new THREE.PerspectiveCamera(50, 1, 0.1, 1000);
-        // planet.camera.position.set(planet.position.x, planet.position.y, 2);
-        //
-        // planet.controls = new OrbitControls(planet.camera, renderer.domElement);
-        planet.camera_pos = {x: planet.position.x, y: planet.position.y, z: 2};
+        planet.camera_pos = {x: planet.position.x, y: planet.position.y, z: planet.position.z + 2*radius};
 
         planet.addEventListener("click", (event) => {
             event.stopPropagation();
@@ -69,7 +65,6 @@ function main() {
             .group(Tweens)
             .start();
 
-        // const original_target = controls.target;
         new Tween(controls.target)
             .to(new_target)
             .onUpdate(() => controls.update())
@@ -78,21 +73,15 @@ function main() {
             .onComplete(() => controls.enabled = true)
             .start();
 
-        //
-        // let old_camera = camera;
-        // camera = new_camera;
-        // old_camera.position.set(original_camera);
-        // controls.enabled = true;
     }
 
     function resizeRendererToDisplaySize(renderer) {
         const canvas = renderer.domElement;
         const width = canvas.clientWidth;
         const height = canvas.clientHeight;
-        const needResize = canvas.width !== width || canvas.height !== height || resize_me;
+        const needResize = canvas.width !== width || canvas.height !== height;
         if (needResize) {
             renderer.setSize(width, height, false);
-            resize_me = false;
         }
         return needResize;
     }
@@ -126,10 +115,10 @@ function main() {
     }
 
     function show_text() {
-        console.log("checking planets");
         planets.forEach((planet, ndx) => {
-            console.log(`checking planet ${ndx}`)
-            if (controls.target.x == planet.position.x && camera.position.z >= 1 && camera.position.z <= 3) {
+            if (controls.target.x == planet.position.x
+                && camera.position.z >= planet.radius + planet.position.z
+                && camera.position.z <= 3*planet.radius + planet.position.z) {
                 planet.text_element.style.display = "block";
             } else {
                 planet.text_element.style.display = "None";
@@ -157,22 +146,25 @@ function main() {
     const renderer = new THREE.WebGLRenderer({antialias: true, canvas});
     const main_camera = new THREE.PerspectiveCamera(50, 1, 0.1, 1000);
     let camera = main_camera;
-    camera.position.z = 20;
+    const original_camera_pos = {x: 0, y:0, z:30};
+    camera.position.set(original_camera_pos.x, original_camera_pos.y, original_camera_pos.z);
     const scene = new THREE.Scene();
 
     scene.background = new THREE.Color(colors[0]);
-
     const interactionManager = new InteractionManager(renderer, camera, renderer.domElement);
 
     const planets = [
-        makePlanet(1, colors[0], 0, 0, "planet1"),
-        makePlanet(1, colors[1], 5, 1, "planet2"),
+        makePlanet(2, colors[0], 0, 0, 0, "about me"),
+        makePlanet(1, colors[1], 5, 1, 0, "coursework"),
+        makePlanet(1, colors[2], -3, -3, 0, "projects"),
+        makePlanet(1, colors[3], -6, -10, 1, "experience"),
+        makePlanet(1, colors[4], 4, -8, 1, "contact"),
     ];
 
     const home_button = document.getElementById("home_button");
     home_button.addEventListener("click", (event) => {
         console.log("take me home was clicked");
-        tweenTo({x:0, y: 0, z:20}, {x:0,y:0,z:0});
+        tweenTo(original_camera_pos, {x:0,y:0,z:0});
     })
 
     add_light();
