@@ -72,7 +72,8 @@ html, body {
   top: 50%;
   left:50%;
   transform: translate(-50%, -50%);
-  width: 70vh;
+  width: 90vw;
+  max-width: 1000px;
   text-align: center;
   z-index: 100;
   display:None;
@@ -107,8 +108,10 @@ h1 {
   font-kerning: normal;
   text-transform: uppercase;
   letter-spacing: 0.05rem;
-  font-size: 5rem;
+  font-size: clamp(24px, 10vw, 100px);
   font-weight: normal;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 h2 {

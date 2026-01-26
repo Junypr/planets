@@ -40,7 +40,7 @@ function main() {
         planet.radius = radius;
 
         planet.text_element = document.getElementById(id);
-        planet.camera_pos = {x: planet.position.x, y: planet.position.y, z: planet.position.z + 2*radius};
+        planet.camera_pos = {x: planet.position.x, y: planet.position.y, z: planet.position.z + 1.6*radius};
 
         planet.addEventListener("click", (event) => {
             event.stopPropagation();
@@ -119,9 +119,9 @@ function main() {
         planets.forEach((planet, ndx) => {
             if (controls.target.x == planet.position.x
                 && camera.position.z >= planet.radius + planet.position.z
-                && camera.position.z <= 3*planet.radius + planet.position.z) {
+                && camera.position.z <= 2.6*planet.radius + planet.position.z) {
                 planet.text_element.style.display = "block";
-                planet.text_element.style.opacity = Math.min(1.3 - Math.abs(camera.position.z - 2*planet.radius - planet.position.z)/planet.radius*1.3, 1)
+                planet.text_element.style.opacity = Math.min(1.3 - Math.abs(camera.position.z - 1.6*planet.radius - planet.position.z)/planet.radius*1.3, 1)
                 // console.log(planet.text_element.style.opacity)
             } else {
                 planet.text_element.style.display = "None";
