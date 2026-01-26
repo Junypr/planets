@@ -56,14 +56,6 @@ function main() {
 
     function tweenTo(camera_pos, new_target) {
         controls.enabled = false;
-        new Tween(camera.position)
-            .to(camera_pos)
-            .onUpdate(() => {
-                    controls.update();
-            })
-            .easing(Easing.Quadratic.InOut)
-            .group(Tweens)
-            .start();
 
         new Tween(controls.target)
             .to(new_target)
@@ -71,6 +63,15 @@ function main() {
             .easing(Easing.Quadratic.InOut)
             .group(Tweens)
             .onComplete(() => controls.enabled = true)
+            .start();
+
+        new Tween(camera.position)
+            .to(camera_pos)
+            .onUpdate(() => {
+                    controls.update();
+            })
+            .easing(Easing.Quadratic.InOut)
+            .group(Tweens)
             .start();
 
     }
@@ -120,6 +121,8 @@ function main() {
                 && camera.position.z >= planet.radius + planet.position.z
                 && camera.position.z <= 3*planet.radius + planet.position.z) {
                 planet.text_element.style.display = "block";
+                planet.text_element.style.opacity = Math.min(1.3 - Math.abs(camera.position.z - 2*planet.radius - planet.position.z)/planet.radius*1.3, 1)
+                // console.log(planet.text_element.style.opacity)
             } else {
                 planet.text_element.style.display = "None";
             }
