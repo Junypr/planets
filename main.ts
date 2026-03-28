@@ -3,6 +3,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { InteractionManager } from "three.interactive";
 import {Group, Tween, Easing} from "@tweenjs/tween.js";
 import assert from 'assert';
+import { Text } from 'troika-three-text';
 
 
 // TODO:
@@ -37,7 +38,8 @@ type planet = {
     radius: number,
     textElement: HTMLElement,
     cameraPos: position,
-    rotation: THREE.rotation
+    rotation: THREE.rotation,
+    label: Text,
 }
 
 function main() {
@@ -103,6 +105,23 @@ function main() {
         });
 
         interactionManager.add(planet);
+
+        // label for planet
+        const label = new Text();
+        scene.add(label);
+
+        label.text = id;
+        label.fontSize = 0.2;
+        label.position.z = planet.position.z;
+        label.color = 0x9966FF;
+        label.position.x = planet.position.x;
+        label.anchorX = -planet.radius * 1.1;
+        label.position.y = planet.position.y;
+        label.font = "assets/ia-writer-quattro-latin-700-normal-DX555wpQ.ttf";
+        label.fontSize = planet.radius / 4;
+        label.sync();
+
+        planet.label = label;
 
         return planet;
     }
@@ -170,6 +189,7 @@ function main() {
             const rot = time * speed;
             planet.rotation.x = rot;
             planet.rotation.y = rot;
+            if (planet.label) planet.label.lookAt(camera.position);
         });
 
         subplanets.forEach((planet, ndx) => {
@@ -177,6 +197,7 @@ function main() {
             const rot = time * speed;
             planet.rotation.x = rot;
             planet.rotation.y = rot;
+            if (planet.label) planet.label.lookAt(camera.position);
         });
 
         renderer.render(scene, camera);

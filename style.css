@@ -79,6 +79,7 @@ html, body {
   display:None;
   color: #fff;
   font-family: 'ia quattro', Arial, Helvetica, sans-serif;
+  font-size: 1.25rem;
 }
 
 #home_button {
