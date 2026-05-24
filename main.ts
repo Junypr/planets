@@ -47,6 +47,7 @@ type planet = {
     cameraPos: position,
     rotation: THREE.rotation,
     label: Text,
+    speed: number
 }
 
 function main() {
@@ -73,6 +74,7 @@ function main() {
         planet.position.y = pos.y;
         planet.position.z = pos.z;
         planet.radius = radius;
+        planet.speed = (radius + color) * 0.1;
 
         planet.cameraPos = new position(planet.position.x, planet.position.y, planet.position.z + 1.6*radius);
 
@@ -99,6 +101,7 @@ function main() {
         planet.position.x = pos.x;
         planet.position.y = pos.y;
         planet.position.z = pos.z;
+        planet.speed = (id.length + radius) * 0.01;
         planet.radius = radius;
 
         planet.textElement = document.getElementById(id);
@@ -191,8 +194,8 @@ function main() {
             camera.updateProjectionMatrix();
         }
 
-        planets.forEach((planet, ndx) => {
-            const speed = 0.1 + ndx * .01;
+        planets.forEach((planet) => {
+            const speed = planet.speed;
             const rot = time * speed;
             planet.rotation.x = rot;
             planet.rotation.y = rot;
@@ -200,7 +203,7 @@ function main() {
         });
 
         subplanets.forEach((planet, ndx) => {
-            const speed = 0.1 + ndx * .01;
+            const speed = planet.speed;
             const rot = time * speed;
             planet.rotation.x = rot;
             planet.rotation.y = rot;
@@ -230,7 +233,7 @@ function main() {
                 planet.textElement.style.display = "block";
                 planet.textElement.style.opacity = Math.min(1.5 - camera.position.distanceTo(planet.position)/(planet.radius*2.6), 1)
             } else {
-                planet.textElement.style.display = "None";
+                planet.textElement.style.display = "none";
             }
         });
     }
@@ -275,47 +278,56 @@ function main() {
     scene.background = new THREE.Color(COLORS[0]);
     const interactionManager = new InteractionManager(renderer, camera, renderer.domElement);
 
-    const planets: planet[] = [
-        makePlanet(4, COLORS[5], new position(0, 0, 0), "about me"),
+    const planets: Map<string, planet> = new Map([
+        ["about me", makePlanet(4, COLORS[5], new position(0, 0, 0), "about me")],
 
-        makePlanet(2, COLORS[1], new position(10, 15, -20), "coursework"),
-        makePlanet(1, COLORS[1], new position (20, 12, -30), "freshman"),
-        makePlanet(1, COLORS[1], new position (12, 20, -6), "sophomore"),
+        ["coursework", makePlanet(2, COLORS[1], new position(10, 15, -15), "coursework")],
+        ["sophomore", makePlanet(1, COLORS[1], new position (12, 20, -6), "sophomore")],
+        ["freshman", makePlanet(1, COLORS[1], new position (20, 12, -18), "freshman")],
 
-        makePlanet(2, COLORS[2], new position(-13, 6, 5), "projects"),
-        makePlanet(1, COLORS[2], new position (-17, 1, 6), "dbf"),
-        makePlanet(1, COLORS[2], new position (-5, 8, 15), "ssp"),
-        makePlanet(1, COLORS[2], new position (-20, 10, -10), "fca"),
-        makePlanet(1, COLORS[2], new position (-10, 5, 6), "techrise"),
+        ["projects", makePlanet(2, COLORS[2], new position(-13, 6, 5), "projects")],
+        ["dbf", makePlanet(1, COLORS[2], new position (-17, 1, 6), "dbf")],
+        ["ssp", makePlanet(1, COLORS[2], new position (-5, 8, 12), "ssp")],
+        ["fca", makePlanet(1, COLORS[2], new position (-25, 10, 2), "fca")],
+        ["techrise", makePlanet(1, COLORS[2], new position (-10, 3, 6), "techrise")],
 
-        makePlanet(2, COLORS[3], new position (14, -8, 3), "experience"),
-        makePlanet(1, COLORS[3], new position (5, -15, 1), "seagrant"),
-        makePlanet(1, COLORS[3], new position (20, -7, -5), "tasan"),
-        makePlanet(1, COLORS[3], new position (21, -3, 5), "mrl"),
-        makePlanet(1, COLORS[3], new position (12, -13, 15), "nasa"),
-        makePlanet(1, COLORS[3], new position (17, -2, 2), "relativity"),
+        ["experience", makePlanet(2, COLORS[3], new position (10, -5, 3), "experience")],
+        ["seagrant", makePlanet(1, COLORS[3], new position (5, -15, 1), "seagrant")],
+        ["tasan", makePlanet(1, COLORS[3], new position (20, -7, -5), "tasan")],
+        ["mrl", makePlanet(1, COLORS[3], new position (21, -3, 5), "mrl")],
+        ["nasa", makePlanet(1, COLORS[3], new position (12, -9, 15), "nasa")],
+        ["relativity", makePlanet(1, COLORS[3], new position (17, -2, 2), "relativity")],
 
-        makePlanet(2, COLORS[4], new position (-15, -7, -15), "contact"),
-    ];
+        ["contact", makePlanet(2, COLORS[4], new position (-15, -7, -10), "contact")]
+    ]);
 
     const subplanets: planet[] = [
-        makeSubPlanet(planets[0], 0.5, COLORS[1], new position(5, 0, 5)),
-        makeSubPlanet(planets[0], 0.5, COLORS[2], new position(-1, 7, 0)),
-        makeSubPlanet(planets[1], 0.5, COLORS[3], new position(-5, 2, -5)),
-        makeSubPlanet(planets[1], 0.5, COLORS[6], new position(-1, 7, 5)),
-        makeSubPlanet(planets[2], 0.5, COLORS[2], new position(5, 7, -5)),
-        makeSubPlanet(planets[4], 0.5, COLORS[1], new position(-7, 0, 2)),
-        makeSubPlanet(planets[4], 0.5, COLORS[3], new position(-1, 2, 5)),
-        makeSubPlanet(planets[9], 0.5, COLORS[6], new position(-4, 0, 3)),
-        makeSubPlanet(planets[9], 0.5, COLORS[2], new position(-1, 2, 5)),
-        makeSubPlanet(planets[9], 0.5, COLORS[3], new position(-5, 5, -6)),
-        makeSubPlanet(planets[15], 0.5, COLORS[1], new position(-1, -1, -5)),
+        makeSubPlanet(planets.get("about me") ?? assert.fail(), 0.5, COLORS[1], new position(3, 2, 5)),
+        makeSubPlanet(planets.get("about me") ?? assert.fail(), 0.5, COLORS[2], new position(-1, 3, 7)),
+        makeSubPlanet(planets.get("coursework") ?? assert.fail(), 0.5, COLORS[3], new position(-3, 2, -3)),
+        makeSubPlanet(planets.get("sophomore") ?? assert.fail(), 0.5, COLORS[6], new position(-1, 4, 2)),
+        makeSubPlanet(planets.get("freshman") ?? assert.fail(), 0.5, COLORS[2], new position(5, 3, -5)),
+        makeSubPlanet(planets.get("projects") ?? assert.fail(), 0.5, COLORS[1], new position(-3, 0, 2)),
+        makeSubPlanet(planets.get("projects") ?? assert.fail(), 0.5, COLORS[4], new position(-1, 2, 2)),
+        makeSubPlanet(planets.get("experience") ?? assert.fail(), 0.5, COLORS[6], new position(-4, 0, 3)),
+        makeSubPlanet(planets.get("experience") ?? assert.fail(), 0.5, COLORS[2], new position(-1, 2, 2)),
+        makeSubPlanet(planets.get("experience") ?? assert.fail(), 0.5, COLORS[5], new position(-5, 5, -1)),
+        makeSubPlanet(planets.get("contact") ?? assert.fail(), 0.5, COLORS[1], new position(-1, -1, -5)),
     ]
 
     const homeButton = document.getElementById("home_button") ?? assert.fail("did not find home button");
     homeButton.addEventListener("click", (event) => {
         tweenTo(ogCameraPos, new position(0, 0, 0));
     })
+
+    // get all planet buttons and make them
+    const planetButtons = document.querySelectorAll("button");
+    planetButtons.forEach((button)=> {button.addEventListener("click", (event) => {
+        console.log(`clicked on ${button.className}`);
+        const planetId = button.className;
+        const planet = planets.get(planetId) ?? assert.fail();
+        tweenTo(planet.cameraPos, planet.position);
+    })})
 
     add_light();
 

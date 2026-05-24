@@ -7,7 +7,7 @@
   </head>
   <body>
     <canvas id = "c"></canvas>
-    <div id="home_button">🏠</div>
+    <div id="home_button">🚀</div>
     <div class="planet_description" id="about me">
       <h1>hi, i'm alex</h1>
       <p>
@@ -41,7 +41,7 @@
         minimum spanning trees, network flow, linear programming, intractability, 
         approximation algorithms, multiplicative weights, Markov chains. 
       </p>
-      <p>You can also browse by year: [freshman] [sophomore]</p>
+      <p>You can also browse by year: <button type="button" class="freshman">[freshman]</button> <button class="sophomore">[sophomore]</button></p>
     </div>
 
     <div class="planet_description" id="experience">
@@ -109,10 +109,39 @@
     </div>
 
     <div class="planet_description" id="dbf">
-      <h1>test</h1>
-      <p>
-        dbf
-      </p>
+  
+  <h1>Design Build Fly</h1>
+
+  <p>A team of MIT students building RC planes for the AIAA’s design/build/fly competition.</p>
+
+  <p><b>Skills & Tools:</b> CAD (Fusion 360), stability analysis (XFLR5), composite manufacturing, lasercutting, Monokote</p>
+
+  <p><b>Links:</b> <a href="https://web.mit.edu/dbf/www/">team website</a></p>
+
+  <p><img src="images/DBF.png" alt="" width = 100%></p>
+
+  <h1 id="fall-2024">2026 Competition</h1>
+  <p>TODO</p>
+
+  <h1 id="fall-2024">2025 Competition</h1>
+  <p>We built small balsa gliders and <a href="https://photos.fife.usercontent.google.com/pw/AP1GczPE7GoR4OznoFX3C11uXpBPQHe35fhCwbed34B8u-nffjMrS1n2niXjjA=w3260-h2445-s-no-gm?authuser=0">larger RC aircraft</a> as part of DBF’s new member training. Our wobbly wing-fuselage attachment caused it to <a href="https://photos.google.com/photo/AF1QipNgvEvfnV4KIrwAhKR6gxvI8QRDwDue5OmDkw0L">crash</a>.</p>
+
+  <p>Our mission requirements for the year’s competition involved creating an autonomous glider that could hit a target, so I helped brainstorm glider configurations. I did some back-of-the-envelope calculations to figure out the lift-drag ratio we’d need.</p>
+
+  <p>I helped with fabrication, including monokoting the wing and laying up the tail in fiberglass, for the first test flight.</p>
+
+  <p>We had our first test flight at the end of the semester! The plane had no dihedral and an essentially non-existent fuselage, so it was neutrally stable and required attentive piloting. It <a href="https://photos.google.com/photo/AF1QipNuxspf6d7MaqV82yVmoGNHe6bIbu5GnnhcurE6">flew several laps successfully</a>.</p>
+
+  <p>We decided to build a glider in the conventional configuration, so I built <a href="https://photos.google.com/photo/AF1QipOjgtzB5Aa2wFNig3br6XbG52n0MNU3YRM_3Cna">several gliders</a> with different methods to see what would be lightest. We tried testing the gliders, including by dropping them from a drone, but found that it was difficult to find a reliable way to release the glider.</p>
+
+  <p>I wrote the airfoil selection section in our design doc.</p>
+
+  <p>I spent a lot of time helping build two more aircraft to test fly, and spare parts to bring to competition to ensure we’d be able to recover from a crash.</p>
+
+  <p>At competition, I helped fix last minute problems (like a screw that just wouldn’t come out from a broken motor, and the glider release mechanism that kept sticking) and talked to other teams. Although we didn’t perform as well as I would’ve liked at competition (we were late in the flight order because we accidentally added extra empty pages to our design doc, so we had fewer attempts to fly), I still had fun and learned a lot.</p>
+
+  <p>I’m currently aerodynamics subteam co-lead and am learning AeroSandbox for next year!</p>
+
     </div>
 
     <div class="planet_description" id="ssp">
@@ -137,10 +166,45 @@
     </div>
 
     <div class="planet_description" id="nasa">
-      <h1>test</h1>
-      <p>
-        dbf
-      </p>
+  <h1>Nasa Ames Unitary Plan Wind Tunnel Internship</h1>
+
+  <p><b>Characterizing the uncertainty in a stereophotogrammetry system used by the NASA Ames Unitary Plan Wind Tunnel to measure model angle of attack. Mentored by Ted Garbeff and Lindsey Drone.</b></p>
+
+  <p><b>Skills & Tools:</b> stereophotogrammetry, OpenCV, Python multiprocessing, Monte Carlo, uncertainty analysis</p>
+
+<p><img src="images/UPWT.jpg" alt="" width = 100%>
+(some of the interns in IR)</p>
+
+<p>I started by getting familiar with Ted’s camera and light setup, the hexapod (a platform with 6 degrees of freedom and 0.00001mm accuracy) and OpenCV in Python. I spent some time blazing through computer vision textbooks — I hadn’t done anything with computer vision before, so I had to learn a lot.</p>
+
+<p>I wrote a suite of detection and refinement methods using OpenCV’s functions: blob detection, Harris corner detection, convolution, and ellipse fit refinement, centroiding, corner refinement, and a special convolution refinement algorithm Ted devised. I wrote methods to triangulate points and convert from the camera reference frame to the hexapod’s. I also experimented with camera calibration — and realized that it was far finickier than expected.</p>
+
+<p>The other interns and I about a dozen targets of different shapes and sizes with an airbrush and Cricut stencils. I started taking my own data. I did experiments to determine the system’s accuracy in measuring motion of a few mm with different targets.</p>
+
+<p>I realized that to get a better picture of the error in the system, I wanted a lot of precise data points, that I could take quickly. So I used different calibration boards (checker pattern and dot pattern) and measured the positions of the dots relative to each other with the cameras, then compared the results to the board’s specs. I found that the accuracy depended a lot on the calibration I used, and that errors were systematic (some parts of the board all skewing one way, for example) so I used multiple pictures of the same board in the exact same position to determine error from noise, and then dived deeper into calibration.</p>
+
+<p>I took several thousand photos of a checker calibration board in different positions and used that as the raw data to run a Monte Carlo simulation on camera calibration. Combining that with the measured error from noise, I input all the errors into a Monte Carlo simulation on triangulation, and found that error in camera calibration had the largest effect on error in triangulation results.</p>
+
+<p>I did other experimenting to see the effects of other possible variables: like vibration (I convinced two test engineers, the interns, and Lindsey to jump up and down in sync with me in the lab), binning, and lighting.</p>
+
+<p><a href="https://drive.google.com/file/d/1A-Rncfb17Ya3Z-CIl4nMNU3zIlAfGhYu/view?usp=drive_link">The presentation I gave to the NASA Ames Aeronautics division at the end of my internship.</a> It had cooler animations in powerpoint.</p>
+
+<p>I spent a fair amount of time making sure that the code I wrote was well documented, in the hopes that it’ll be used in the future (because it’s free! and matlab isn’t!). I used multiprocessing with the detection methods so I could process many images in parallel, speeding up my data analysis (the images were each ~50mb, so any speedup helped a lot). I also optimized the original convolution refinement code I wrote to take advantage of arrays, finally getting it to similar speeds as OpenCV’s other detection / refinement methods.</p>
+
+<p>Despite this, my poor intern loaner laptop hit 100% CPU frequently. During some Monte Carlo runs (camera calibration, ahem), I left it running for a few hours to go explore other NASA labs or the wind tunnels!</p>
+
+<p>Cool things I got to see (that I’m allowed to post):</p>
+<ul>
+  <li>Schlieren (shadowgraph) — we popped balloons and played a trumpet and watched the sound waves with a high speed camera</li>
+  <li>the Vertical Gun Range, which I wouldn’t describe as a gun but more like a cannon that simulates asteroid impacts, capsules descending, etc.</li>
+  <li>the super computing facility</li>
+  <li>the largest wind tunnel in the world</li>
+  <li>an anechoic RF chamber</li>
+  <li>the lead screw that adjusts the floor of the wind tunnel, changing its mach number</li>
+</ul>
+
+<p>I also had time to take cool photos with the wind tunnel’s IR camera and make a 3D music video using the camera setup (see the end of the <a href="https://drive.google.com/file/d/1A-Rncfb17Ya3Z-CIl4nMNU3zIlAfGhYu/view?usp=drive_link">presentation</a>!).</p>
+
     </div>
 
     <div class="planet_description" id="relativity">

@@ -84,6 +84,19 @@ html, body {
   overflow-y: auto;
 }
 
+button {
+  color: #fff;
+  display: inline-block !important;
+  background: none;        /* Removes default background */
+  border: none;            /* Removes default border */
+  padding: 0;             /* Resets button padding to 0 */
+  margin: 0;              /* Resets margin to 0 */
+  font: inherit;          /* Forces the button to use parent text font/size */
+  cursor: pointer;        /* Optional: indicates it is still clickable */
+  text-decoration: none;  /* Optional: keeps it looking like plain text */
+  text-align: inherit;
+}
+
 #home_button {
   position: absolute;
   bottom: 50px;
@@ -92,7 +105,8 @@ html, body {
   z-index: 100;
   display:block;
   color: #ddd;
-  font-family: 'chunko bold'
+  font-family: 'chunko bold';
+  font-size: large;
 }
 
 #home_button:hover {
