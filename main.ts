@@ -7,6 +7,13 @@ import { Text } from 'troika-three-text';
 
 
 // TODO:
+// update home button
+// update colors
+// updated text
+// add instruction text + a start here popup (or something)
+// adjust positions of stuff
+
+// TODO:
 // allow camera orbit
 // add links --- raycasting
 // add different camera views for each planet
@@ -113,7 +120,7 @@ function main() {
         label.text = id;
         label.fontSize = 0.2;
         label.position.z = planet.position.z;
-        label.color = 0x9966FF;
+        label.color = 0x000;
         label.position.x = planet.position.x;
         label.anchorX = -planet.radius * 1.1;
         label.position.y = planet.position.y;
@@ -233,19 +240,29 @@ function main() {
      */
     function add_light(): void {
         const color = 0xFFFFFF;
-        const intensity = 10;
+        const intensity = 50;
         const light = new THREE.PointLight(color, intensity, 0, 1);
         light.position.set(10, 10, 10);
         scene.add(light);
 
-        const fill_light = new THREE.AmbientLight(0x404040, 1);
+        const fill_light = new THREE.AmbientLight(0x404040, 30);
         scene.add(fill_light);
     }
 
     const Tweens = new Group();
 
-    const COLORS = [0x341b5f, 0xec13a4, 0xf5e612, 0x6839eb, 0x5ed9f2]
-    // # purple magenta yellow
+    const COLORS = [0x4d9cce, 0xE6A9C0, 0xD25030, 0x8fc480, 0xF4C65E, 0x91c8ca, 0x8fc480]
+    /* 
+    red-orange 210080048
+    pink 230169192
+    yellow 244198094
+    peach (dark) 2411155119
+    peach (light)228199186
+    aqua 145200202
+    mint 143196128
+    0xf17377
+    */
+
 
     const canvas = document.querySelector("#c");
     const renderer = new THREE.WebGLRenderer({antialias: true, canvas});
@@ -259,7 +276,7 @@ function main() {
     const interactionManager = new InteractionManager(renderer, camera, renderer.domElement);
 
     const planets: planet[] = [
-        makePlanet(4, COLORS[0], new position(0, 0, 0), "about me"),
+        makePlanet(4, COLORS[5], new position(0, 0, 0), "about me"),
 
         makePlanet(2, COLORS[1], new position(10, 15, -20), "coursework"),
         makePlanet(1, COLORS[1], new position (20, 12, -30), "freshman"),
@@ -285,11 +302,11 @@ function main() {
         makeSubPlanet(planets[0], 0.5, COLORS[1], new position(5, 0, 5)),
         makeSubPlanet(planets[0], 0.5, COLORS[2], new position(-1, 7, 0)),
         makeSubPlanet(planets[1], 0.5, COLORS[3], new position(-5, 2, -5)),
-        makeSubPlanet(planets[1], 0.5, COLORS[0], new position(-1, 7, 5)),
+        makeSubPlanet(planets[1], 0.5, COLORS[6], new position(-1, 7, 5)),
         makeSubPlanet(planets[2], 0.5, COLORS[2], new position(5, 7, -5)),
         makeSubPlanet(planets[4], 0.5, COLORS[1], new position(-7, 0, 2)),
         makeSubPlanet(planets[4], 0.5, COLORS[3], new position(-1, 2, 5)),
-        makeSubPlanet(planets[9], 0.5, COLORS[0], new position(-4, 0, 3)),
+        makeSubPlanet(planets[9], 0.5, COLORS[6], new position(-4, 0, 3)),
         makeSubPlanet(planets[9], 0.5, COLORS[2], new position(-1, 2, 5)),
         makeSubPlanet(planets[9], 0.5, COLORS[3], new position(-5, 5, -6)),
         makeSubPlanet(planets[15], 0.5, COLORS[1], new position(-1, -1, -5)),

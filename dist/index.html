@@ -3,47 +3,46 @@
   <head>
     <meta charset="utf-8">
     <title>hello, universe!!!</title>
-    <script type="module" crossorigin src="/planets/assets/index-4C9-KLha.js"></script>
-    <link rel="stylesheet" crossorigin href="/planets/assets/index-B62Pim1b.css">
+    <script type="module" crossorigin src="/planets/assets/index-YtuJvTE3.js"></script>
+    <link rel="stylesheet" crossorigin href="/planets/assets/index-eIbd8e2e.css">
   </head>
   <body>
     <canvas id = "c"></canvas>
-    <div id="home_button">take me home</div>
+    <div id="home_button">🏠</div>
     <div class="planet_description" id="about me">
       <h1>hi, i'm alex</h1>
       <p>
-        I'm a computer science and engineering (course 6-3) student at the Massachusetts Institute of Technology, class of 2028.
+        I'm a sophomore at MIT studying computer science (6-3). 
       </p><p>
-        I've worked at a NASA wind tunnel, tracked a near earth asteriod, fine-tuned a LLM to help researchers write papers, 
-        and helped build planes from 6 inches to 12 feet in wingspan. 
+        I've worked at a NASA wind tunnel, tracked a near earth asteriod, fine-tuned a LLM to help researchers revise papers, 
+        and built planes with wingspans from 6 inches to 12 feet. 
+        It's a lot of different things. 
+        But I'm most interested in applying my software experience to aerospace, specifically to controls, computer vision, and autonomy. 
       </p><p>
-        I'm interested in working in aerospace on autonomy. 
-      </p><p>
-        I love eating tuna sashimi, photographing birds, writing sci-fi, and obsessing over anything that flies.
+        I love tuna sashimi, ducks, sci-fi, and anything that flies.
       </p>
     </div>
 
     <div class="planet_description" id="coursework">
       <h1>coursework</h1>
-      <h2>Fundamentals of Programming (6.1010)</h2>
+      <p>Some highlights:</p>
+      <h2>Software Construction (6.1020)</h2>
       <p>
-        Python programming.
-        Graph search, backtracking, recursion, object-oriented programming, functional programming.
-        Wrote a lisp interpreter.
+        TypeScript.
+        Including specifications, abstract data types, unit testing, regular expressions, concurrency.
       </p>
-      <h2>Mobile Autonomous Systems Laboratory (6.9600)</h2>
+      <h2>Computation Structures (6.1910)</h2>
       <p>
-        Team-based competition to build a robot to stack cubes. We won 3rd place.
+        Combinational and sequential circuits, memory hierarchy, operating systems. 
+        Built a RISC-V 4 stage pipelined processor in Minispec. 
       </p>
-      <h2>Introduction to Low-level Programming in C and Assembly (6.1904)</h2>
+      <h2>Design and Analysis of Algorithms (6.1220)</h2>
       <p>
-        C and RISC-V assembly on an ESP-32. Bit manipulation, floating point, pointers, calling convention.
-        Wrote Conway's Game of Life in assembly.
+        Dynamic programming, greedy algorithms, randomized algorithms,
+        minimum spanning trees, network flow, linear programming, intractability, 
+        approximation algorithms, multiplicative weights, Markov chains. 
       </p>
-      <h3>Differential Equations (18.03)</h3>
-      <p>
-        hi lol.
-      </p>
+      <p>You can also browse by year: [freshman] [sophomore]</p>
     </div>
 
     <div class="planet_description" id="experience">
@@ -78,9 +77,19 @@
     </div>
 
     <div class="planet_description" id="freshman">
-      <h1>test</h1>
+      <h1>freshman year</h1>
+      <h2>Mobile Autonomous Systems Laboratory (6.9600)</h2>
       <p>
-        classes for freshman year
+        Team-based competition to build a cube-stacking robot in a month. We won 3rd place.
+      </p>
+      <h2>Introduction to Low-level Programming in C and Assembly (6.1904)</h2>
+      <p>
+        C and RISC-V assembly on an ESP-32. Bit manipulation, floating point, pointers, calling convention.
+        Wrote Conway's Game of Life in assembly.
+      </p>
+      <h3>Differential Equations (18.03)</h3>
+      <p>
+        hi lol.
       </p>
     </div>
 
@@ -88,6 +97,15 @@
       <h1>test</h1>
       <p>
         classes for sophomore year
+      </p>
+      <h2>Computer Systems Engineering (6.1800)</h2>
+      <p>
+        Operating systems, networking, distributed systems, security.
+      </p>
+      <h2>Dynamics and Control I (2.003)</h2>
+      <p>
+        Kinematics. Deriving equations of motion via momentum and Euler-Lagrange. Linearization of equations of motion.
+        Stability and vibrations. 
       </p>
     </div>
 
@@ -141,10 +159,28 @@
     </div>
 
     <div class="planet_description" id="tasan">
-      <h1>test</h1>
-      <p>
-        dbf
-      </p>
+      <h1>MIT MRL</h1>
+<p><i>Spring 2026</i></p>
+<p><b>I developed a machine learning tool to match researchers at MIT with companies interested in sponsoring research.</b></p>
+
+<p>MRL supports large, interdisciplinary materials-related projects at MIT. Given the current research funding climate, MRL has been focusing on attracting and retaining industry funding. </p>
+
+<p>There are many companies interested in sponsoring research, but they often don't know where to start. Who are the experts in the field? What are their current research interests? Are the relevant recent innovations? With over a thousand PIs at MIT, these questions become difficult for any one person to answer. The problem only compounds when you look at academia as a whole.</p>
+
+<p>I developed a tool that gathers public data about MIT research and company interests in order to finds matches between researchers and companies.</p>
+
+<p>Specifically, there are three steps: gathering data, embedding the data, and computing matches.</p>
+
+For PIs, I gather their papers from OpenAlex and generate general keywords describing their research from Gemini. For companies, I search recent job listings on Indeed, papers from OpenAlex, US patents, and general keywords from Gemini.
+
+For job listings and patents, I extract materials-science related key words from the descriptions using Spacy with the sentence transformer all-mpnet-base-v2. Then I embed the extracted keywords and paper titles using the same model, and calculated a score based on recency of data and relevance of the source. Everything then went into a Sqlite3 database.
+
+To generate matches, I used the sum of the cosine similarities between a company's keywords and a researcher's keywords, weighed by the keywords' scores to determine a match score. 
+
+Some not-so-surprising results: the highest match scores were in researcher-company pairs where the researcher had already written a paper sponsored by the company. Some of the high-scoring matches were obvious --- a metallurgy professor with Tata Steel, for example, but others were less so --- a civil engineering professor with Raytheon, who showed interested in topology optimization for heat transfer, exactly the area she was trying to steer her lab towards.
+
+While I was working on this project, MRL was kickstarting several pilot centers --- multi-company collaborations centered around one PI. I used this tool to suggest initial companies for the PIs to reach out to, and when some companies came wanting to fund several projects, I also searched for appropriate PIs at MIT to contact.
+      
     </div>
 
     <div class="planet_description" id="mrl">
