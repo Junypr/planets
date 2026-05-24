@@ -39,9 +39,9 @@
 }
 
 @font-face {
-  font-family: 'ia quattro bold'; /* A name to reference the font later */
+  font-family: 'ia quattro'; /* A name to reference the font later */
   src: url('fonts/ia-writer-quattro-latin-700-normal.ttf');
-  font-weight: normal;
+  font-weight: bold;
   font-style: normal;
   font-display: swap; /* Helps control font loading behavior */
 }
@@ -80,6 +80,8 @@ html, body {
   color: #000;
   font-family: 'ia quattro', Arial, Helvetica, sans-serif;
   font-size: 1.1rem;
+  max-height: 75%;
+  overflow-y: auto;
 }
 
 #home_button {
@@ -116,6 +118,6 @@ h1 {
 }
 
 h2 {
-  font-family: 'ia quattro bold';
-  font-weight: normal;
+  font-family: 'ia quattro';
+  font-weight: bold;
 }

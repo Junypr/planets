@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <title>hello, universe!!!</title>
-    <script type="module" crossorigin src="/planets/assets/index-YtuJvTE3.js"></script>
-    <link rel="stylesheet" crossorigin href="/planets/assets/index-eIbd8e2e.css">
+    <script type="module" crossorigin src="/planets/assets/index-LbpEzcFg.js"></script>
+    <link rel="stylesheet" crossorigin href="/planets/assets/index-iwz1Qh50.css">
   </head>
   <body>
     <canvas id = "c"></canvas>
@@ -158,12 +158,18 @@
       </p>
     </div>
 
-    <div class="planet_description" id="tasan">
+    <div class="planet_description" id="tasan">      
+    </div>
+
+    <div class="planet_description" id="mrl">
       <h1>MIT MRL</h1>
 <p><i>Spring 2026</i></p>
 <p><b>I developed a machine learning tool to match researchers at MIT with companies interested in sponsoring research.</b></p>
 
-<p>MRL supports large, interdisciplinary materials-related projects at MIT. Given the current research funding climate, MRL has been focusing on attracting and retaining industry funding. </p>
+<p><b>Skills & Tools:</b> Spacy, sentence transformers, keyword embedding, querying APIs</p>
+<p><b>Links:</b> <a href="https://github.mit.edu/alexding/MRL-Matchmaking">github</a></p>
+
+<p><a href="https://mrl.mit.edu/">MRL</a> supports large, interdisciplinary materials-related projects at MIT. Given the current research funding climate, MRL has been focusing on attracting and retaining industry funding. </p>
 
 <p>There are many companies interested in sponsoring research, but they often don't know where to start. Who are the experts in the field? What are their current research interests? Are the relevant recent innovations? With over a thousand PIs at MIT, these questions become difficult for any one person to answer. The problem only compounds when you look at academia as a whole.</p>
 
@@ -171,23 +177,16 @@
 
 <p>Specifically, there are three steps: gathering data, embedding the data, and computing matches.</p>
 
-For PIs, I gather their papers from OpenAlex and generate general keywords describing their research from Gemini. For companies, I search recent job listings on Indeed, papers from OpenAlex, US patents, and general keywords from Gemini.
+<p>For PIs, I gather their papers from <a href="https://openalex.org/">OpenAlex</a> and generate general keywords describing their research from Gemini. For companies, I search recent job listings on Indeed, papers from OpenAlex, US patents, and general keywords from Gemini.</p>
 
-For job listings and patents, I extract materials-science related key words from the descriptions using Spacy with the sentence transformer all-mpnet-base-v2. Then I embed the extracted keywords and paper titles using the same model, and calculated a score based on recency of data and relevance of the source. Everything then went into a Sqlite3 database.
+<p>For job listings and patents, I extract materials-science related key words from the descriptions using <a href="https://spacy.io/">Spacy</a> with the sentence transformer <a href="https://huggingface.co/sentence-transformers/all-mpnet-base-v2">all-mpnet-base-v2</a>. Then I embed the extracted keywords and paper titles using the same model, and calculated a score based on recency of data and relevance of the source. Everything then went into a Sqlite3 database.</p>
 
-To generate matches, I used the sum of the cosine similarities between a company's keywords and a researcher's keywords, weighed by the keywords' scores to determine a match score. 
+<p>To generate matches, I used the sum of the cosine similarities between a company's keywords and a researcher's keywords, weighed by the keywords' scores to determine a match score. </p>
 
-Some not-so-surprising results: the highest match scores were in researcher-company pairs where the researcher had already written a paper sponsored by the company. Some of the high-scoring matches were obvious --- a metallurgy professor with Tata Steel, for example, but others were less so --- a civil engineering professor with Raytheon, who showed interested in topology optimization for heat transfer, exactly the area she was trying to steer her lab towards.
+<p>Some not-so-surprising results: the highest match scores were in researcher-company pairs where the researcher had already written a paper sponsored by the company. Some of the high-scoring matches were obvious — a metallurgy professor with Tata Steel, for example, but others were less so — a civil engineering professor with Raytheon, who showed interested in topology optimization for heat transfer, exactly the area she was trying to steer her lab towards.</p>
 
-While I was working on this project, MRL was kickstarting several pilot centers --- multi-company collaborations centered around one PI. I used this tool to suggest initial companies for the PIs to reach out to, and when some companies came wanting to fund several projects, I also searched for appropriate PIs at MIT to contact.
-      
-    </div>
+<p>While I was working on this project, MRL was kickstarting several pilot centers — multi-company collaborations centered around one PI. I used this tool to suggest initial companies for the PIs to reach out to, and when some companies came wanting to fund several projects, I also searched for appropriate PIs at MIT to contact.</p>
 
-    <div class="planet_description" id="mrl">
-      <h1>test</h1>
-      <p>
-        dbf
-      </p>
     </div>
   </body>
 </html>
