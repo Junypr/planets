@@ -21,7 +21,8 @@
   },
   "scripts": {
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "watch": "vite build --watch"
   },
   "eslintConfig": {
     "extends": [

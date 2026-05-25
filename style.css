@@ -74,7 +74,6 @@ html, body {
   transform: translate(-50%, -50%);
   width: 90vw;
   max-width: 1000px;
-  text-align: center;
   z-index: 100;
   display:None;
   color: #000;
@@ -95,6 +94,10 @@ button {
   cursor: pointer;        /* Optional: indicates it is still clickable */
   text-decoration: none;  /* Optional: keeps it looking like plain text */
   text-align: inherit;
+}
+
+button:hover {
+  font-weight: bold;
 }
 
 #home_button {
@@ -129,6 +132,23 @@ h1 {
   font-weight: normal;
   margin-top: 30px;
   margin-bottom: 30px;
+  text-align: center;
+}
+
+a:link {
+  color: #fff;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #fff;
+  text-decoration: none;
 }
 
 h2 {

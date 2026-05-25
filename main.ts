@@ -242,13 +242,13 @@ function main() {
      * adds light to the scene
      */
     function add_light(): void {
-        const color = 0xFFFFFF;
-        const intensity = 50;
+        const color = 0xffffff;
+        const intensity = 20;
         const light = new THREE.PointLight(color, intensity, 0, 1);
-        light.position.set(10, 10, 10);
+        light.position.set(0, 0, 0);
         scene.add(light);
 
-        const fill_light = new THREE.AmbientLight(0x404040, 30);
+        const fill_light = new THREE.AmbientLight(0xffffff, 3.5);
         scene.add(fill_light);
     }
 
@@ -272,14 +272,14 @@ function main() {
     const mainCamera = new THREE.PerspectiveCamera(50, 1, 0.1, 1000);
     let camera = mainCamera;
     const ogCameraPos = new position(0, 0, 45);
-    camera.position.set(ogCameraPos.x, ogCameraPos.y, ogCameraPos.z);
+    // camera.position.set(ogCameraPos.x, ogCameraPos.y, ogCameraPos.z);
     const scene = new THREE.Scene();
 
     scene.background = new THREE.Color(COLORS[0]);
     const interactionManager = new InteractionManager(renderer, camera, renderer.domElement);
 
     const planets: Map<string, planet> = new Map([
-        ["about me", makePlanet(4, COLORS[5], new position(0, 0, 0), "about me")],
+        ["about me", makePlanet(4, 0xFF8C00, new position(0, 0, 0), "about me")],
 
         ["coursework", makePlanet(2, COLORS[1], new position(10, 15, -15), "coursework")],
         ["sophomore", makePlanet(1, COLORS[1], new position (12, 20, -6), "sophomore")],
@@ -298,7 +298,7 @@ function main() {
         ["nasa", makePlanet(1, COLORS[3], new position (12, -9, 15), "nasa")],
         ["relativity", makePlanet(1, COLORS[3], new position (17, -2, 2), "relativity")],
 
-        ["contact", makePlanet(2, COLORS[4], new position (-15, -7, -10), "contact")]
+        ["contact", makePlanet(2, COLORS[5], new position (-15, -7, -10), "contact")]
     ]);
 
     const subplanets: planet[] = [
@@ -328,6 +328,10 @@ function main() {
         const planet = planets.get(planetId) ?? assert.fail();
         tweenTo(planet.cameraPos, planet.position);
     })})
+
+    const homePlanet = planets.get("about me") ?? assert.fail();
+
+    camera.position.set(homePlanet.cameraPos.x, homePlanet.cameraPos.y, homePlanet.cameraPos.z);
 
     add_light();
 
