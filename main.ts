@@ -254,7 +254,16 @@ function main() {
 
     const Tweens = new Group();
 
-    const COLORS = [0x4d9cce, 0xE6A9C0, 0xD25030, 0x8fc480, 0xF4C65E, 0x91c8ca, 0x8fc480]
+    const COLORS = [0x4d9cce, 0xf88397, 0xD25030, 0x92b35c, 0xFF8C00, 0x71b09d, 0x8fc480]
+    /*
+    blue
+    pink
+    red-orange
+    pistachio
+    yellow
+    blue
+
+    */
     /* 
     red-orange 210080048
     pink 230169192
@@ -279,7 +288,7 @@ function main() {
     const interactionManager = new InteractionManager(renderer, camera, renderer.domElement);
 
     const planets: Map<string, planet> = new Map([
-        ["about me", makePlanet(4, 0xFF8C00, new position(0, 0, 0), "about me")],
+        ["about me", makePlanet(4, COLORS[4], new position(0, 0, 0), "about me")],
 
         ["coursework", makePlanet(2, COLORS[1], new position(10, 15, -15), "coursework")],
         ["sophomore", makePlanet(1, COLORS[1], new position (12, 20, -6), "sophomore")],
@@ -305,13 +314,13 @@ function main() {
         makeSubPlanet(planets.get("about me") ?? assert.fail(), 0.5, COLORS[1], new position(3, 2, 5)),
         makeSubPlanet(planets.get("about me") ?? assert.fail(), 0.5, COLORS[2], new position(-1, 3, 7)),
         makeSubPlanet(planets.get("coursework") ?? assert.fail(), 0.5, COLORS[3], new position(-3, 2, -3)),
-        makeSubPlanet(planets.get("sophomore") ?? assert.fail(), 0.5, COLORS[6], new position(-1, 4, 2)),
+        makeSubPlanet(planets.get("sophomore") ?? assert.fail(), 0.5, COLORS[5], new position(-1, 4, 2)),
         makeSubPlanet(planets.get("freshman") ?? assert.fail(), 0.5, COLORS[2], new position(5, 3, -5)),
-        makeSubPlanet(planets.get("projects") ?? assert.fail(), 0.5, COLORS[1], new position(-3, 0, 2)),
+        makeSubPlanet(planets.get("projects") ?? assert.fail(), 0.5, COLORS[5], new position(-3, 0, 2)),
         makeSubPlanet(planets.get("projects") ?? assert.fail(), 0.5, COLORS[4], new position(-1, 2, 2)),
         makeSubPlanet(planets.get("experience") ?? assert.fail(), 0.5, COLORS[6], new position(-4, 0, 3)),
         makeSubPlanet(planets.get("experience") ?? assert.fail(), 0.5, COLORS[2], new position(-1, 2, 2)),
-        makeSubPlanet(planets.get("experience") ?? assert.fail(), 0.5, COLORS[5], new position(-5, 5, -1)),
+        makeSubPlanet(planets.get("experience") ?? assert.fail(), 0.5, COLORS[3], new position(-5, 5, -1)),
         makeSubPlanet(planets.get("contact") ?? assert.fail(), 0.5, COLORS[1], new position(-1, -1, -5)),
     ]
 
