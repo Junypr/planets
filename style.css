@@ -46,6 +46,17 @@
   font-display: swap; /* Helps control font loading behavior */
 }
 
+#splash {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    color: #fff;
+    text-align: center;
+    z-index: 9999; /* Ensure it's on top */
+    transition: opacity 0.5s ease;
+    font-family: "ia quattro";
+}
+
 html, body {
   margin: 0;
   height: 100%;
