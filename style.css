@@ -105,6 +105,7 @@ button {
   cursor: pointer;        /* Optional: indicates it is still clickable */
   text-decoration: none;  /* Optional: keeps it looking like plain text */
   text-align: inherit;
+  font-size: 1.1rem;
 }
 
 button:hover {
