@@ -351,7 +351,7 @@ function main() {
 
     const splash = document.getElementById('splash') ?? assert.fail();
 
-    document.addEventListener('click', () => {
+    splash.addEventListener('click', () => {
         splash.style.opacity = '0';
         setTimeout(() => { splash.style.display = 'none'; }, 500);
     });

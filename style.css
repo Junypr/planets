@@ -55,6 +55,7 @@
     z-index: 9999; /* Ensure it's on top */
     transition: opacity 0.5s ease;
     font-family: "ia quattro";
+    font-size: 1.1rem;
 }
 
 html, body {
@@ -121,7 +122,8 @@ button:hover {
   display:block;
   color: #ddd;
   font-family: 'chunko bold';
-  font-size: large;
+  font-size: xx-large;
+  cursor: pointer;
 }
 
 #home_button:hover {
