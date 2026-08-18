@@ -4,7 +4,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="author" content="Alex Ding">
-  <meta name="description" content="Alex Ding is a computer science student at MIT. Intern at Relativity Space and NASA.">
+  <meta name="description"
+    content="Alex Ding is a computer science student at MIT. Intern at Relativity Space and NASA.">
   <title>Alex Ding</title>
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/x-icon" href="/images/rocket.svg">
@@ -14,7 +15,7 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-57SH859YSY"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
+  function gtag() { dataLayer.push(arguments); }
   gtag('js', new Date());
 
   gtag('config', 'G-57SH859YSY');
@@ -24,7 +25,8 @@
   <canvas id="c"></canvas>
   <div id="home_button">🚀</div>
   <div id="splash">
-    <p>scroll to zoom · click and drag to rotate · command + click and drag to pan · click on a planet to visit · click on 🚀 to return home · click this to dismiss</p>
+    <p>scroll to zoom · click and drag to rotate · command + click and drag to pan · click on a planet to visit · click
+      on 🚀 to return home · click this to dismiss</p>
   </div>
   <div class="planet_description" id="about me">
     <h1>hi, i'm alex</h1>
@@ -32,8 +34,9 @@
       I'm a rising junior studying computer science (6-3) at MIT.
     </p>
     <p>
-      I've characterized the uncertainty in a <button class="nasa" type="button">camera system</button> at NASA, <button class="mrl" type="button">
-        matched researchers</button>  with industry funding using machine learning, <button class="ssp"
+      I've characterized the uncertainty in a <button class="nasa" type="button">camera system</button> at NASA, <button
+        class="mrl" type="button">
+        matched researchers</button> with industry funding using machine learning, <button class="ssp"
         type="button">tracked a near earth asteriod</button>,
       and built planes with wingspans from <button class="dbf" type="button">6 inches</button> to <button class="fca"
         type="button">12 feet</button>.
@@ -75,7 +78,8 @@
   <div class="planet_description" id="experience">
     <h1>experience</h1>
     <ul>
-      <li><button type="button" class="relativity">[Relativity Space]</button> (Summer 2026) developing a sub-mm precision computer vision pipeline</li>
+      <li><button type="button" class="relativity">[Relativity Space]</button> (Summer 2026) developing a sub-mm
+        precision computer vision pipeline</li>
       <li><button type="button" class="mrl">[MRL]</button> (Spring 2026) matching researchers with industry funding
         opportunities using machine learning</li>
       <li><button type="button" class="tasan">[Tasan Group]</button> (Fall 2025) finetuning an LLM to give feedback on
@@ -821,13 +825,55 @@
 
   <div class="planet_description" id="relativity">
     <h1>Relativity Space</h1>
-
-    <p style="text-align: center"><i>Summer 2026</i></p>
-    <p>
-      I am interning at Relativity Space as a part of the STARR program, which is developing a cooperative fleet of autonomous mobile robots for industrial environments. 
-      Specifically, I've been working on a sub-mm precision computer vision system to measure 6 DoF pose. More coming!
-    </p>
-
+    <p><b>Developing a sub-mm 60Hz rigid body acquisition and tracking pipeline.</b></p>
+    <p><b>Skills &amp; Tools:</b> C++, multi view 3D computer vision, concurrency, multithreading, Kalman filters,
+      camera calibration, Git / Gitlab</p>
+    <p>The STARR team at Relativity Space needed to track robotic arms to sub-mm precision at 60Hz. The existing
+      system used Optitrack Motive, a motion capture system, to track groups (rigid bodies) of IR reflective balls
+      (fiducials). Motive has some issues, so the team wanted to build their own version.</p>
+    <p>When I joined, the existing codebase only had fiducial triangulation and tracking.</p>
+    <p>I started by improving calibration, switching the initial 3-marker wand used for calibration to a 4-marker
+      wand. This allows us to use the cross ratio of the four markers, instead of just the ratio of three markers,
+      making wand detection more reliable at oblique angles and increasing robustness to noise.</p>
+    <p>I did some studies to verify the accuracy of the system. I measured known arrangements of fiducials to
+      verify measurements, then tracked these fiducials over 14+ hours to see if the system experienced drift over
+      time. Generally, we saw sub-mm drift and sub-mm accuracy.</p>
+    <p>Working closely with another intern, I developed a rigid body acquisition and tracking pipeline.</p>
+    <p>We started by testing different acquisition methods for clustering and sparse point registration. For
+      clustering, we tried an out of the box euclidean clustering algorithm and a custom distance gating algorithm
+      using a DSU. For registration, we tried geometric hashing and RANSAC. We tested all four combinations
+      against several different challenging scenarios (extra noise points, noised measurements). We found that
+      geometric hashing greatly outperformed RANSAC in accuracy and runtime, while distance gating and euclidean
+      clustering performed about the same, so we chose the simpler euclidean clustering.</p>
+    <p>To make geometric hashing run as efficiently as possible, I had to use Murmur Hash 3 to hash my transformed
+      coordinates — other hash algorithms would cause too many collisions and blow up the runtime. I also add a
+      configurable minimum number of correct correspondences to stop early, to avoid an exhaustive search through
+      all bases.</p>
+    <p>We also implemented a naive version of tracking (search last known position).</p>
+    <p>We developed a rigid body-centered acquisition and tracking threading model that allowed us to reacquire
+      lost points, ignore points that were part of a currently tracked body, and publish results via ROS topics.
+      We squashed race conditions.</p>
+    <p>We looked at ways to improve tracking, since acquisition was fairly expensive (several ms), so we wanted to
+      avoid reacquiring as often as possible. I implemented an EKF that assumed constant velocity. We compared
+      this to an ESKF. The ESKF performed better — allowing tracking on &gt;95% of frames of a robotic arm moving
+      through a series of challenging poses — so we kept it.</p>
+    <p>I noticed in synthetic tests with 20 rigid bodies that the time tracking takes, while generally under 3ms,
+      would occasionally spike. My mentor suggested this was because acquisition was hogging compute power. I had
+      sized the thread pool to be exactly the number of rigid bodies, thinking that acquisition was
+      single-threaded, but realized that some of the libraries we were using for acquisition were quietly
+      multithreading and hogging the pool. I split tracking and acquisition into separate thread pools, and the
+      spiking largely went away.</p>
+    <p>Since the goal is to create a more easily deployable camera-based perception system, we spent some time
+      trying to see if two separate rigs (both with extrinsics previously known from calibration) could be used
+      together for perception without needing to be calibrated together. We put an "origin" rigid body in view of
+      both rigs, and used it to localize the two rigs relative to each other.</p>
+    <p>Both rigs localized, but their positions were a few mm off, enough that our triangulation pipeline (which
+      matches detected fiducials that seem "close enough," since it has to work with anonymous points) couldn't
+      figure out that all the detections of the same point in the scene actually belonged to the same point.</p>
+    <p>We also tried with more rigid bodies, but this didn't help enough.</p>
+    <p>If we could start over, we'd push for active markers that can communicate their identity to each camera —
+      they'd solve many of the issues we had this summer with anonymous points being easily confused by
+      triangulation and tracking.</p>
     <p style="text-align: center;"><button type="button" class="experience">[all experience]</button></p>
   </div>
 
