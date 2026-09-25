@@ -1,65 +1,79 @@
 @font-face {
-  font-family: 'cheria'; /* A name to reference the font later */
+  font-family: 'cheria';
+  /* A name to reference the font later */
   src: url('fonts/Cheria\ DEMO.otf');
   font-weight: normal;
   font-style: normal;
-  font-display: swap; /* Helps control font loading behavior */
+  font-display: swap;
+  /* Helps control font loading behavior */
 }
 
 @font-face {
-  font-family: 'chunko bold'; /* A name to reference the font later */
-  src: url('fonts/Chunko\ Bold\ Demo.ttf'); 
+  font-family: 'chunko bold';
+  /* A name to reference the font later */
+  src: url('fonts/Chunko\ Bold\ Demo.ttf');
   font-weight: normal;
   font-style: normal;
-  font-display: swap; /* Helps control font loading behavior */
+  font-display: swap;
+  /* Helps control font loading behavior */
 }
 
 @font-face {
-  font-family: 'merriweather'; /* A name to reference the font later */
-  src: url('fonts/Merriweather-VariableFont_opsz\,wdth\,wght.ttf'); 
+  font-family: 'merriweather';
+  /* A name to reference the font later */
+  src: url('fonts/Merriweather-VariableFont_opsz\,wdth\,wght.ttf');
   font-weight: normal;
   font-style: normal;
-  font-display: swap; /* Helps control font loading behavior */
+  font-display: swap;
+  /* Helps control font loading behavior */
 }
 
 @font-face {
-  font-family: 'roboto'; /* A name to reference the font later */
-  src: url('fonts/Roboto-VariableFont_wdth\,wght.ttf'); 
+  font-family: 'roboto';
+  /* A name to reference the font later */
+  src: url('fonts/Roboto-VariableFont_wdth\,wght.ttf');
   font-weight: normal;
   font-style: normal;
-  font-display: swap; /* Helps control font loading behavior */
+  font-display: swap;
+  /* Helps control font loading behavior */
 }
 
 @font-face {
-  font-family: 'ia quattro'; /* A name to reference the font later */
-  src: url('fonts/ia-writer-quattro-latin-400-normal.ttf'); 
+  font-family: 'ia quattro';
+  /* A name to reference the font later */
+  src: url('fonts/ia-writer-quattro-latin-400-normal.ttf');
   font-weight: normal;
   font-style: normal;
-  font-display: swap; /* Helps control font loading behavior */
+  font-display: swap;
+  /* Helps control font loading behavior */
 }
 
 @font-face {
-  font-family: 'ia quattro'; /* A name to reference the font later */
+  font-family: 'ia quattro';
+  /* A name to reference the font later */
   src: url('fonts/ia-writer-quattro-latin-700-normal.ttf');
   font-weight: bold;
   font-style: normal;
-  font-display: swap; /* Helps control font loading behavior */
+  font-display: swap;
+  /* Helps control font loading behavior */
 }
 
 #splash {
-    position: absolute;
-    width: 90%;
-    left: 5%;
-    top: 0;
-    color: #fff;
-    text-align: center;
-    z-index: 9999; /* Ensure it's on top */
-    transition: opacity 0.5s ease;
-    font-family: "ia quattro";
-    font-size: 1.1rem;
+  position: absolute;
+  width: 90%;
+  left: 5%;
+  top: 0;
+  color: #fff;
+  text-align: center;
+  z-index: 9999;
+  /* Ensure it's on top */
+  transition: opacity 0.5s ease;
+  font-family: "ia quattro";
+  font-size: 1.1rem;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   height: 100%;
 }
@@ -70,7 +84,7 @@ html, body {
   width: 100%;
   text-align: center;
   z-index: 100;
-  display:block;
+  display: block;
   color: #000
 }
 
@@ -88,7 +102,7 @@ html, body {
   width: 125vh;
   max-width: 90vw;
   z-index: 100;
-  display:None;
+  display: None;
   color: #000;
   font-family: 'ia quattro', Arial, Helvetica, sans-serif;
   font-size: 1.1rem;
@@ -99,13 +113,20 @@ html, body {
 button {
   color: #fff;
   display: inline-block !important;
-  background: none;        /* Removes default background */
-  border: none;            /* Removes default border */
-  padding: 0;             /* Resets button padding to 0 */
-  margin: 0;              /* Resets margin to 0 */
-  font: inherit;          /* Forces the button to use parent text font/size */
-  cursor: pointer;        /* Optional: indicates it is still clickable */
-  text-decoration: none;  /* Optional: keeps it looking like plain text */
+  background: none;
+  /* Removes default background */
+  border: none;
+  /* Removes default border */
+  padding: 0;
+  /* Resets button padding to 0 */
+  margin: 0;
+  /* Resets margin to 0 */
+  font: inherit;
+  /* Forces the button to use parent text font/size */
+  cursor: pointer;
+  /* Optional: indicates it is still clickable */
+  text-decoration: none;
+  /* Optional: keeps it looking like plain text */
   text-align: inherit;
   font-size: 1.1rem;
 }
@@ -120,7 +141,7 @@ button:hover {
   width: 100%;
   text-align: center;
   z-index: 100;
-  display:block;
+  display: block;
   color: #ddd;
   font-family: 'chunko bold';
   font-size: xx-large;
@@ -133,7 +154,7 @@ button:hover {
   width: 100%;
   text-align: center;
   z-index: 100;
-  display:block;
+  display: block;
   color: #fff;
   font-family: 'chunko bold'
 }
@@ -169,4 +190,18 @@ a:visited {
 h2 {
   font-family: 'ia quattro';
   font-weight: bold;
+}
+
+@media screen and (max-width: 767px) {
+  .planet_description {
+    font-size: 16px !important;
+  }
+
+  button {
+    font-size: 16px !important;
+  }
+
+  #splash {
+    font-size: 14px !important;
+  }
 }
