@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { InteractionManager } from "three.interactive";
-import {Group, Tween, Easing} from "@tweenjs/tween.js";
+import { Group, Tween, Easing } from "@tweenjs/tween.js";
 import assert from 'assert';
 import { Text } from 'troika-three-text';
 
@@ -65,7 +65,7 @@ function main() {
     function makeSubPlanet(parent: planet, radius: number, color: number, pos: position): planet {
 
         const geometry = new THREE.SphereGeometry(radius);
-        const material = new THREE.MeshToonMaterial({color});
+        const material = new THREE.MeshToonMaterial({ color });
         const planet = new THREE.Mesh(geometry, material);
 
         parent.add(planet); // pretty sure this is fine
@@ -76,7 +76,7 @@ function main() {
         planet.radius = radius;
         planet.speed = (radius + color) * 0.1;
 
-        planet.cameraPos = new position(planet.position.x, planet.position.y, planet.position.z + 1.6*radius);
+        planet.cameraPos = new position(planet.position.x, planet.position.y, planet.position.z + 1.6 * radius);
 
         return planet;
     }
@@ -93,7 +93,7 @@ function main() {
     function makePlanet(radius: number, color: number, pos: position, id: string): planet {
 
         const geometry = new THREE.SphereGeometry(radius);
-        const material = new THREE.MeshToonMaterial({color});
+        const material = new THREE.MeshToonMaterial({ color });
         const planet = new THREE.Mesh(geometry, material);
 
         scene.add(planet);
@@ -105,7 +105,7 @@ function main() {
         planet.radius = radius;
 
         planet.textElement = document.getElementById(id);
-        planet.cameraPos = new position(planet.position.x, planet.position.y, planet.position.z + 1.6*radius);
+        planet.cameraPos = new position(planet.position.x, planet.position.y, planet.position.z + 1.6 * radius);
 
         planet.addEventListener("click", (event: MouseEvent) => {
             event.stopPropagation();
@@ -155,7 +155,7 @@ function main() {
         new Tween(camera.position)
             .to(cameraPos)
             .onUpdate(() => {
-                    controls.update();
+                controls.update();
             })
             .easing(Easing.Quadratic.InOut)
             .group(Tweens)
@@ -231,7 +231,7 @@ function main() {
                 && camera.position.distanceTo(planet.position) >= planet.radius) {
                 // console.log(`showing text for planet ${planet.textElement.textContent}`);
                 planet.textElement.style.display = "block";
-                planet.textElement.style.opacity = Math.min(1.5 - camera.position.distanceTo(planet.position)/(planet.radius*2.6), 1)
+                planet.textElement.style.opacity = Math.min(1.5 - camera.position.distanceTo(planet.position) / (planet.radius * 2.6), 1)
             } else {
                 planet.textElement.style.display = "none";
             }
@@ -277,7 +277,7 @@ function main() {
 
 
     const canvas = document.querySelector("#c");
-    const renderer = new THREE.WebGLRenderer({antialias: true, canvas});
+    const renderer = new THREE.WebGLRenderer({ antialias: true, canvas });
     const mainCamera = new THREE.PerspectiveCamera(50, 1, 0.1, 1000);
     let camera = mainCamera;
     const ogCameraPos = new position(0, 0, 45);
@@ -291,23 +291,24 @@ function main() {
         ["about me", makePlanet(4, COLORS[4], new position(0, 0, 0), "about me")],
 
         ["coursework", makePlanet(2, COLORS[1], new position(10, 15, -15), "coursework")],
-        ["sophomore", makePlanet(1, COLORS[1], new position (12, 20, -6), "sophomore")],
-        ["freshman", makePlanet(1, COLORS[1], new position (20, 12, -18), "freshman")],
+        ["sophomore", makePlanet(1, COLORS[1], new position(12, 20, -6), "sophomore")],
+        ["freshman", makePlanet(1, COLORS[1], new position(20, 12, -18), "freshman")],
+        ["junior", makePlanet(1, COLORS[1], new position(5, 17, -20), "junior")],
 
         ["projects", makePlanet(2, COLORS[2], new position(-13, 6, 5), "projects")],
-        ["dbf", makePlanet(1, COLORS[2], new position (-17, 1, 6), "dbf")],
-        ["ssp", makePlanet(1, COLORS[2], new position (-5, 8, 12), "ssp")],
-        ["fca", makePlanet(1, COLORS[2], new position (-25, 10, 2), "fca")],
-        ["techrise", makePlanet(1, COLORS[2], new position (-10, 3, 6), "techrise")],
+        ["dbf", makePlanet(1, COLORS[2], new position(-17, 1, 6), "dbf")],
+        ["ssp", makePlanet(1, COLORS[2], new position(-5, 8, 12), "ssp")],
+        ["fca", makePlanet(1, COLORS[2], new position(-25, 10, 2), "fca")],
+        ["techrise", makePlanet(1, COLORS[2], new position(-10, 3, 6), "techrise")],
 
-        ["experience", makePlanet(2, COLORS[3], new position (10, -5, 3), "experience")],
-        ["seagrant", makePlanet(1, COLORS[3], new position (5, -15, 1), "seagrant")],
-        ["tasan", makePlanet(1, COLORS[3], new position (20, -7, -5), "tasan")],
-        ["mrl", makePlanet(1, COLORS[3], new position (21, -3, 5), "mrl")],
-        ["nasa", makePlanet(1, COLORS[3], new position (12, -9, 15), "nasa")],
-        ["relativity", makePlanet(1, COLORS[3], new position (17, -2, 2), "relativity")],
+        ["experience", makePlanet(2, COLORS[3], new position(10, -5, 3), "experience")],
+        ["seagrant", makePlanet(1, COLORS[3], new position(5, -15, 1), "seagrant")],
+        ["tasan", makePlanet(1, COLORS[3], new position(20, -7, -5), "tasan")],
+        ["mrl", makePlanet(1, COLORS[3], new position(21, -3, 5), "mrl")],
+        ["nasa", makePlanet(1, COLORS[3], new position(12, -9, 15), "nasa")],
+        ["relativity", makePlanet(1, COLORS[3], new position(17, -2, 2), "relativity")],
 
-        ["contact", makePlanet(2, COLORS[5], new position (-15, -7, -10), "contact")]
+        ["contact", makePlanet(2, COLORS[5], new position(-15, -7, -10), "contact")]
     ]);
 
     const subplanets: planet[] = [
@@ -331,12 +332,14 @@ function main() {
 
     // get all planet buttons and make them
     const planetButtons = document.querySelectorAll("button");
-    planetButtons.forEach((button)=> {button.addEventListener("click", (event) => {
-        console.log(`clicked on ${button.className}`);
-        const planetId = button.className;
-        const planet = planets.get(planetId) ?? assert.fail();
-        tweenTo(planet.cameraPos, planet.position);
-    })})
+    planetButtons.forEach((button) => {
+        button.addEventListener("click", (event) => {
+            console.log(`clicked on ${button.className}`);
+            const planetId = button.className;
+            const planet = planets.get(planetId) ?? assert.fail();
+            tweenTo(planet.cameraPos, planet.position);
+        })
+    })
 
     const homePlanet = planets.get("about me") ?? assert.fail();
 
